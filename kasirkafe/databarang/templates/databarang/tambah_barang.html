@@ -41,7 +41,8 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        button {
+        .submit-button {
+            display: block;
             width: 100%;
             padding: 10px;
             background-color: #007bff;
@@ -50,7 +51,7 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        button:hover {
+        .submit-button:hover {
             background-color: #0056b3;
         }
         nav ul {
@@ -85,7 +86,7 @@
     </nav>
     <div class="container">
         <h1>Tambah Barang</h1>
-        <form method="POST">
+        <form method="POST" id="barangForm" action="{% url 'tambah_barang' %}">
             {% csrf_token %}
             <label for="id_nama">Nama:</label>
             <input type="text" id="id_nama" name="nama" required>
@@ -99,8 +100,20 @@
             <label for="id_stok">Stok:</label>
             <input type="text" id="id_stok" name="stok" required>
 
-            <button type="submit">Simpan</button>
+            <button type="submit" class="submit-button">Simpan</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById("barangForm").addEventListener("submit", function(event) {
+            var form = event.target;
+            if (form.checkValidity()) {
+                form.submit();
+            } else {
+                event.preventDefault();
+                alert('Harap isi semua kolom dengan benar.');
+            }
+        });
+    </script>
 </body>
 </html>
